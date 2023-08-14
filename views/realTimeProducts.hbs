@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Productos en Tiempo Real</title>
+    <link rel="stylesheet" href="./styles/realTimeProduct.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Productos en Tiempo Real</h1>
+        <div class="product-list">
+            <div class="product-header">
+                <div class="product-cell">Nombre</div>
+                <div class="product-cell">Precio</div>
+                <div class="product-cell">Stock</div>
+                <div class="product-cell">Descripción</div>
+                <div class="product-cell">Categoría</div>
+                <div class="product-cell">Código</div>
+            </div>
+            {{#each productos}}
+                <div class="product">
+                    <div class="product-cell">{{this.nombre}}</div>
+                    <div class="product-cell">{{this.precio}}</div>
+                    <div class="product-cell">{{this.stock}}</div>
+                    <div class="product-cell">{{this.descripcion}}</div>
+                    <div class="product-cell">{{this.categoria}}</div>
+                    <div class="product-cell">{{this.codigo}}</div>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="add-product-form">
+            <h2>Agregar Producto</h2>
+            <form id="agregarProductoForm">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" required>
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" name="stock" required>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" required>
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" name="categoria" required>
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" required>
+                <button type="submit">Agregar Producto</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="delete-product-form">
+        <h2>Eliminar Producto por Código</h2>
+        <form id="eliminarProductoForm">
+            <label for="codigoEliminar">Código del Producto a Eliminar:</label>
+            <input type="text" id="codigoEliminar" name="codigoEliminar" required>
+            <button type="submit">Eliminar Producto</button>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io(); // Inicializar WebSocket
+
+        // Escuchar eventos de actualización de productos
+        socket.on('productosActualizados', (productos) => {
+            const listaProductos = document.querySelector('.product-list');
+            listaProductos.innerHTML = `
+                <div class="product-header">
+                    <div class="product-cell">Nombre</div>
+                    <div class="product-cell">Precio</div>
+                    <div class="product-cell">Stock</div>
+                    <div class="product-cell">Descripción</div>
+                    <div class="product-cell">Categoría</div>
+                    <div class="product-cell">Código</div>
+                </div>
+                ${productos.map(producto => `
+                    <div class="product">
+                        <div class="product-cell">${producto.nombre}</div>
+                        <div class="product-cell">${producto.precio}</div>
+                        <div class="product-cell">${producto.stock}</div>
+                        <div class="product-cell">${producto.descripcion}</div>
+                        <div class="product-cell">${producto.categoria}</div>
+                        <div class="product-cell">${producto.codigo}</div>
+                    </div>
+                `).join('')}
+            `;
+        });
+
+        const agregarProductoForm = document.getElementById('agregarProductoForm');
+        agregarProductoForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const precio = parseFloat(document.getElementById('precio').value);
+            const stock = parseInt(document.getElementById('stock').value);
+            const descripcion = document.getElementById('descripcion').value;
+            const categoria = document.getElementById('categoria').value;
+            const codigo = document.getElementById('codigo').value;
+            if (nombre && !isNaN(precio) && !isNaN(stock) && descripcion && categoria && codigo) {
+                socket.emit('nuevoProducto', { nombre, precio, stock, descripcion, categoria, codigo });
+                agregarProductoForm.reset();
+            }
+        });
+
+        const eliminarProductoForm = document.getElementById('eliminarProductoForm');
+        eliminarProductoForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const codigoEliminar = document.getElementById('codigoEliminar').value;
+            if (codigoEliminar) {
+                socket.emit('eliminarProductoPorCodigo', codigoEliminar);
+            }
+        });
+    </script>
+</body>
+</html>

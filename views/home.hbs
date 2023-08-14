@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="/styles/home.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo">Lista de Productos</h1>
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Código</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each productos}}
+                    <tr class="product">
+                        <td>{{this.nombre}}</td>
+                        <td>{{this.precio}}</td>
+                        <td>{{this.stock}}</td>
+                        <td>{{this.descripcion}}</td>
+                        <td>{{this.categoria}}</td>
+                        <td>{{this.codigo}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

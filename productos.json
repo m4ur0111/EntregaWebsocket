@@ -1,0 +1,65 @@
+[
+  {
+    "nombre": "Producto 1",
+    "precio": 40,
+    "stock": 60,
+    "descripcion": "Descripción del producto 1",
+    "categoria": "Ejemplo",
+    "codigo": "COD123",
+    "_id": 3
+  }, 
+  {
+    "nombre": "Producto 2",
+    "precio": 40,
+    "stock": 60,
+    "descripcion": "Descripción del producto 1",
+    "categoria": "Ejemplo",
+    "codigo": "COD127",
+    "_id": 4
+  },
+  {
+    "nombre": "Producto 3",
+    "precio": 40,
+    "stock": 60,
+    "descripcion": "Descripción del producto 1",
+    "categoria": "Ejemplo",
+    "codigo": "COD128",
+    "_id": 5
+  },
+  {
+    "nombre": "Producto 4",
+    "precio": 40,
+    "stock": 60,
+    "descripcion": "Descripción del producto 1",
+    "categoria": "Ejemplo",
+    "codigo": "COD129",
+    "_id": 6
+  },
+  {
+    "nombre": "Producto 5",
+    "precio": 40,
+    "stock": 60,
+    "descripcion": "Descripción del producto 1",
+    "categoria": "Ejemplo",
+    "codigo": "COD223",
+    "_id": 7
+  },
+  {
+    "nombre": "Producto 6",
+    "precio": 40,
+    "stock": 60,
+    "descripcion": "Descripción del producto 1",
+    "categoria": "Ejemplo",
+    "codigo": "COD323",
+    "_id": 8
+  },
+  {
+    "nombre": "Producto 7",
+    "precio": 40,
+    "stock": 60,
+    "descripcion": "Descripción del producto 1",
+    "categoria": "Ejemplo",
+    "codigo": "COD423",
+    "_id": 39
+  }
+]
